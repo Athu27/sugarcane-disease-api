@@ -3,10 +3,22 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 import io
+import os
+import gdown
 
 app = Flask(__name__)
-model = tf.keras.models.load_model("model/model.h5")
 
+MODEL_PATH = "model/model.h5"
+MODEL_URL = "https://drive.google.com/uc?id=1j3jFUsfpXx_pICMHdP1eW_HO3u171EtL"  # replace with actual file ID
+
+# Download model if not exists
+os.makedirs("model", exist_ok=True)
+if not os.path.exists(MODEL_PATH):
+    print("Downloading model...")
+    gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+
+# Load model
+model = tf.keras.models.load_model(MODEL_PATH)
 LABELS = ["BrownRust", "Dry", "Healthy", "Mawa", "Mites", "RedSpot", "YellowLeaf"]
 
 def preprocess_image(image_bytes):
