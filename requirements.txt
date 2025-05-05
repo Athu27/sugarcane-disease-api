@@ -1,6 +1,5 @@
 Flask
-tensorflow
+tensorflow==2.13
 numpy
-Pillow
+pillow
 gunicorn
-gdown
